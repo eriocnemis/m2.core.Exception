@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Eriocnemis, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- preference -->
+    <preference for="Eriocnemis\Core\Exception\ResolveExceptionInterface" type="Eriocnemis\Core\Exception\ResolveException"/>
+    <!-- exception handler pool configurations -->
+    <virtualType name="EriocnemisCoreExceptionPool" type="Eriocnemis\Core\Exception\HandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="Magento\Framework\Exception\ConfigurationMismatchException" xsi:type="array">
+                    <item name="class" xsi:type="string">Eriocnemis\Core\Exception\Handler\ConfigurationMismatchHandler</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="namespace" xsi:type="array">
+                        <item name="save" xsi:type="string">save</item>
+                        <item name="validate" xsi:type="string">validate</item>
+                    </item>
+                </item>
+                <item name="Magento\Framework\Validation\ValidationException" xsi:type="array">
+                    <item name="class" xsi:type="string">Eriocnemis\Core\Exception\Handler\ValidationHandler</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="namespace" xsi:type="array">
+                        <item name="save" xsi:type="string">save</item>
+                        <item name="validate" xsi:type="string">validate</item>
+                    </item>
+                </item>
+                <item name="Magento\Framework\Exception\LocalizedException" xsi:type="array">
+                    <item name="class" xsi:type="string">Eriocnemis\Core\Exception\Handler\LocalizedHandler</item>
+                    <item name="sortOrder" xsi:type="number">1000</item>
+                    <item name="namespace" xsi:type="array">
+                        <item name="save" xsi:type="string">save</item>
+                        <item name="validate" xsi:type="string">validate</item>
+                        <item name="delete" xsi:type="string">delete</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Eriocnemis\Core\Exception\ResolveException">
+        <arguments>
+            <argument name="handlerPool" xsi:type="object">EriocnemisCoreExceptionPool</argument>
+        </arguments>
+    </type>
+</config>
