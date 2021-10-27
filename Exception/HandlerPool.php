@@ -72,7 +72,6 @@ class HandlerPool implements HandlerPoolInterface
         uasort($data, function (array $a, array $b) {
             return $this->getSortOrder($a) <=> $this->getSortOrder($b);
         });
-
         return $data;
     }
 
