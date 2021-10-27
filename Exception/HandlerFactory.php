@@ -63,7 +63,6 @@ class HandlerFactory
             );
             return null;
         }
-
         return $handler;
     }
 }
